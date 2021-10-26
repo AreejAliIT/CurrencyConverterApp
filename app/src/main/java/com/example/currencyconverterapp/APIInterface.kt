@@ -7,7 +7,5 @@ interface APIInterface {
     @GET("eur.json")
     fun getPrices(): Call<PriceData?>?
 
-//    @GET("eur.json")
-//    fun getAll(): Call<PriceData.Prices>?
 
 }

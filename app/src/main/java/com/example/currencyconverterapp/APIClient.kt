@@ -10,7 +10,7 @@ class APIClient {
 
     fun getClient(): Retrofit? {
         retrofit = Retrofit.Builder()
-            .baseUrl(" https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/")
+            .baseUrl(Constants.URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         return retrofit

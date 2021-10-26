@@ -10,7 +10,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener {
-    var currencies = arrayOf("inr", "usd", "aud","sar","cny","jpy")
+    // singletone
+    var currencies = Constants.CURRENCY_ARRAY
+
     lateinit var spinner : Spinner
     lateinit var btn : Button
     lateinit var input : EditText
@@ -38,7 +40,6 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener {
         spinner!!.setAdapter(array_adapter)
 
         //  ------------ API CALL------------------
-
          btn.setOnClickListener{
                 callAPI()
             }
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener {
     private fun disp(calc: Double) {
         tvResult.text = "result " + calc
     }
-
     private fun calc(cur: Double?, num: Double): Double {
         var r = 0.0
         if ( cur != null) {
@@ -55,18 +55,16 @@ class MainActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener {
         }
         return r
     }
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         selected = position
     }
-
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
+
     fun callAPI(){
-
         val apiInterface = APIClient().getClient()?.create(APIInterface::class.java)
-
         val call: Call<PriceData?>? = apiInterface!!.getPrices()
-
         call?.enqueue(object : Callback<PriceData?> {
             override fun onResponse(call: Call<PriceData?>?, response: Response<PriceData?>
             ) {
